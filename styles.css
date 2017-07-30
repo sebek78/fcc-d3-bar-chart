@@ -1,4 +1,15 @@
 * {
   margin: 0;
   padding: 0;
+  background-color: #000;
+  color: #FFF;
+}
+.wrapper {
+  width: 800px;
+  margin: 0 auto;
+  background-color: #111;
+  height: 600px;
+}
+#chart {
+  background-color: #222;
 }
