@@ -5,13 +5,14 @@
   color: #FFF;
 }
 .wrapper {
-  width: 800px;
+  width: 1300px;
   margin: 0 auto;
   background-color: #111;
-  height: 600px;
 }
 .chart {
   background-color: steelblue;
+  display: block;
+  margin: 10px auto;
 }
 .chart rect {
   fill: #555;

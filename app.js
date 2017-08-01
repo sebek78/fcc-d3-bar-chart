@@ -1,8 +1,8 @@
 const url ='https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json';
 let data = [];
 
-let maxWidth = 800;
-let barHeight = 10;
+let widthChart = 1200;
+let heightChart = 500;
 
 fetch(url)
   .then((resp)=> resp.json())
@@ -12,28 +12,27 @@ fetch(url)
       let maxX = d3.max(data);
       let max = maxX[1];
       console.log("maXx: ",d3.max(data), "max: ", maxX[1]);
-      let x =  d3.scaleLinear().domain([0,max]).range([0,maxWidth]);
+
+      let y =  d3.scaleLinear().domain([0,max]).range([heightChart, 0]);
 
       let chart = d3.select(".chart")
-            .attr("width",maxWidth)
-            .attr("height", barHeight*data.length);
+            .attr("width",widthChart)
+            .attr("height",heightChart);
+
+      let barWidth = widthChart/data.length;
 
       let bar = chart.selectAll("g")
           .data(data)
           .enter().append("g")
-          .attr("transform", function(d, i){ return "translate(0,"+i*barHeight+")"; });
+          .attr("transform", function(d, i){ return "translate(" + i * barWidth + ",0)"; });
+
 
       bar.append("rect")
-          .attr("width",function(d){ return x(d[1]); })
-          .attr("height", barHeight-1);
-
-      bar.append("text")
-          .attr("x", function(d){ return x(d[1])-3; })
-          .attr("y", barHeight/2)
-          .attr("dy", "0.35em")
-          .text(function(d){ return d; });
-
+          .attr("y", function(d) { return y(d[1]); })
+          .attr("height", function(d) { return heightChart - y(d[1]); })
+          .attr("width", barWidth-1);
+          
   })
   .catch(function(error){
-    console.log(error)
+    console.log(error);
   });
