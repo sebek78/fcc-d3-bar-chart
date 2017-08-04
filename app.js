@@ -47,11 +47,30 @@ fetch(url)
 
       chart.append("g").attr("class", "y axis").call(yAxis);
 
-      chart.append('text').text('Text Y')
-                .attr('x', 25)
-                .attr('y', 50)
+      chart.append('text').text('Units: Billions of Dollars')
+                .attr('x', 20)
+                .attr('y', 160)
                 .attr('fill', 'black')
-                .attr("transform", "rotate(-90 25 50)");
+                .attr("transform", "rotate(-90 20 160)");
+
+      chart.append('text').text('Gross Domestic Product, USA')
+                .attr('x', 400)
+                .attr('y', 20)
+                .attr('fill', 'black');
+
+      chart.append('text')
+                .attr("class", "description")
+                .attr('x', 0)
+                .attr('y', 360)
+                .attr('fill', 'black')
+                .append('tspan')
+                .attr('x',150)
+                .attr('dy',0)
+                .text("Seasonally Adjusted Annual Rate. Notes: A Guide to the National Income and Product Accounts of the United States (NIPA)")
+                .append('tspan')
+                .attr('x',400)
+                .attr('dy',15)
+                .text("(http://www.bea.gov/national/pdf/nipaguid.pdf)")
 
 })
   .catch(function(error){

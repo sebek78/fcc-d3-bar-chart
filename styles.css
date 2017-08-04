@@ -27,3 +27,6 @@
   stroke: #F00;
   shape-rendering: crispEdges;
 }
+.description {
+  text-align: center;
+}
