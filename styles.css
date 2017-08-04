@@ -13,6 +13,7 @@
   background-color: steelblue;
   display: block;
   margin: 10px auto;
+  position: relative;
 }
 .chart rect {
   fill: #555;
@@ -29,4 +30,7 @@
 }
 .description {
   text-align: center;
+}
+.tooltip {
+  position: absolute;
 }
