@@ -75,7 +75,15 @@ fetch(url)
                 .attr('dy',25)
                 .text("(http://www.bea.gov/national/pdf/nipaguid.pdf)");
 
-      chart.append('text').text('created by Sebastian Sporek')
+      chart.append('defs').append('path').attr('id','signature')
+                        .attr('d','M150 250 C 250 200 300 250 400 200')
+                        .attr('fill','transparent');
+
+      chart.append('use').attr('xlink:href', '#signature');
+
+      chart.append('text')
+                    .append('textPath').attr('xlink:href','#signature')
+                        .text('created by Sebastian Sporek')
                   .attr('x', 150)
                   .attr('y', 150)
                   .attr("class", "sign");
