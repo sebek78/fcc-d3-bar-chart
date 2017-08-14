@@ -2,35 +2,53 @@
   margin: 0;
   padding: 0;
   background-color: #AAA;
-  color: #000;
+  color: #191919;
+  font-family: 'Playfair Display', serif;
 }
 .wrapper {
   width: 1300px;
   margin: 0 auto;
   background-color: #CCC;
+  position: relative;
+  overflow: hidden;
 }
 .chart {
-  background-color: steelblue;
+  background-color: #d8c7a8;
   display: block;
-  margin: 10px auto;
-  position: relative;
 }
 .chart rect {
-  fill: #555;
+  fill: #3f3015;
 }
-
+.chart rect:hover {
+  fill: #F0E2B5;
+}
 .axis text {
-  font: 12px sans-serif;
+  font-size: 20px;
 }
-.axis path,
 .axis line {
-  fill: none;
-  stroke: #F00;
-  shape-rendering: crispEdges;
+  stroke: #191919;
 }
-.description {
-  text-align: center;
+.axis-description {
+  font-size:20px;
+}
+.title {
+  font-size: 40px;
+}
+.sign {
+  font-family: 'Rouge Script', cursive;
+  font-size: 30px;
+  stroke: none;
+  fill: #A78D5E;
 }
 .tooltip {
+  background-color: #F0E2B5;
   position: absolute;
+  z-index:2;
+  color: ##191919;
+  font-size: 20px;
+  padding: 5px;
+  width:120px;
+  height: 60px;
+  border: 2px solid #A78D5E;
+  border-radius: 5px;
 }

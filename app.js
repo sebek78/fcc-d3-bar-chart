@@ -1,10 +1,11 @@
 const url ='https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json';
 let data = [];
 
-let margin = {top: 20, right: 30, bottom: 60, left:60}
-let widthChart = 1200 - margin.left - margin.right;
-let heightChart = 400 - margin.top - margin.bottom;
+let margin = {top: 30, right: 80, bottom: 80, left:80}
+let widthChart = 1300 - margin.left - margin.right;
+let heightChart = 620 - margin.top - margin.bottom;
 const chartHandler = document.getElementById("chart");
+const wrapper = document.getElementById("wrapper");
 
 fetch(url)
   .then((resp)=> resp.json())
@@ -42,58 +43,61 @@ fetch(url)
           .attr("id",function(d) { return data.indexOf(d)});
 
       chart.append("g")
-        .attr("class", "x axis")
+        .attr("class", "axis")
         .attr("transform", "translate(0," + heightChart + ")")
         .call(xAxis);
 
-      chart.append("g").attr("class", "y axis").call(yAxis);
+      chart.append("g").attr("class", "axis").call(yAxis);
 
       chart.append('text').text('Units: Billions of Dollars')
-                .attr('x', 20)
-                .attr('y', 160)
-                .attr('fill', 'black')
-                .attr("transform", "rotate(-90 20 160)");
+                .attr("class","axis-description")
+                .attr('x', 30)
+                .attr('y', 210)
+                .attr("transform", "rotate(-90 30 210)");
 
       chart.append('text').text('Gross Domestic Product, USA')
-                .attr('x', 400)
+                .attr("class","title")
+                .attr('x', 300)
                 .attr('y', 20)
                 .attr('fill', 'black');
 
       chart.append('text')
-                .attr("class", "description")
+                .attr("class", "axis-description")
                 .attr('x', 0)
-                .attr('y', 360)
+                .attr('y', heightChart+50)
                 .attr('fill', 'black')
                 .append('tspan')
-                .attr('x',150)
+                .attr('x',30)
                 .attr('dy',0)
                 .text("Seasonally Adjusted Annual Rate. Notes: A Guide to the National Income and Product Accounts of the United States (NIPA)")
                 .append('tspan')
-                .attr('x',400)
-                .attr('dy',15)
+                .attr('x',350)
+                .attr('dy',25)
                 .text("(http://www.bea.gov/national/pdf/nipaguid.pdf)");
+
+      chart.append('text').text('created by Sebastian Sporek')
+                  .attr('x', 150)
+                  .attr('y', 150)
+                  .attr("class", "sign");
+
+
+      let tooltip = document.createElement("div");
+      tooltip.classList.add('tooltip');
+      tooltip.setAttribute("id", "tooltip");
+      wrapper.appendChild(tooltip);
 
       chartHandler.addEventListener("mouseover", function(event){
         let ev = parseInt(event.target.id);
         if (!isNaN(ev)) {
-          chart.select("#tooltip").remove();
-          chart.append("text")
-            .attr("class", "tooltip")
-            .attr("id","tooltip")
-            .attr('x',event.offsetX)
-            .attr('y',event.offsetY)
-            .attr('fill', 'black')
-            .append('tspan')
-            .attr('x',event.offsetX-margin.left+10)
-            .attr('dy',-30)
-            .text(data[ev][0])
-            .append('tspan')
-            .attr('x',event.offsetX-margin.left+10)
-            .attr('dy',-15)
-            .text(data[ev][1]);
-          } else {
-            chart.select("#tooltip").remove();
-          }
+          let top = event.layerY-90;
+          let left = event.layerX-60;
+          tooltip.innerHTML =(data[ev][0] +"<br />"+ data[ev][1]+" B$");
+          tooltip.style.top = top.toString()+"px";
+          tooltip.style.left = left.toString()+"px";
+          tooltip.style.zIndex= "2";
+        } else {
+          tooltip.style.zIndex= "-2";
+        }
       }, false);
 })
   .catch(function(error){
