@@ -5,7 +5,7 @@ let margin = {top: 30, right: 80, bottom: 80, left:80}
 let widthChart = 1300 - margin.left - margin.right;
 let heightChart = 620 - margin.top - margin.bottom;
 const chartHandler = document.getElementById("chart");
-const wrapper = document.getElementById("wrapper");
+let wrapperBox = document.getElementById("wrapper");
 
 fetch(url)
   .then((resp)=> resp.json())
@@ -92,7 +92,7 @@ fetch(url)
       let tooltip = document.createElement("div");
       tooltip.classList.add('tooltip');
       tooltip.setAttribute("id", "tooltip");
-      wrapper.appendChild(tooltip);
+      wrapperBox.appendChild(tooltip);
 
       chartHandler.addEventListener("mouseover", function(event){
         let ev = parseInt(event.target.id);
