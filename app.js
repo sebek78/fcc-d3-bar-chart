@@ -34,9 +34,12 @@ fetch(url)
       let bar = chart.selectAll("g")
           .data(data)
           .enter().append("g")
-          .attr("transform", function(d, i){ return "translate(" + i * barWidth + ",0)"; });
 
       bar.append("rect")
+          .attr("class", "bar")
+          .attr("data-date", (d) => d[0] )
+          .attr("x", (d,i) => x(new Date(d[0])) )
+          .attr("data-gdp", (d) => d[1])
           .attr("y", function(d) { return y(d[1]); })
           .attr("height", function(d) { return heightChart - y(d[1]); })
           .attr("width", barWidth)
@@ -44,10 +47,14 @@ fetch(url)
 
       chart.append("g")
         .attr("class", "axis")
+        .attr("id", "x-axis")
         .attr("transform", "translate(0," + heightChart + ")")
         .call(xAxis);
 
-      chart.append("g").attr("class", "axis").call(yAxis);
+      chart.append("g")
+        .attr("class", "axis")
+        .attr("id", "y-axis")
+        .call(yAxis);
 
       chart.append('text').text('Units: Billions of Dollars')
                 .attr("class","axis-description")
@@ -56,6 +63,7 @@ fetch(url)
                 .attr("transform", "rotate(-90 30 210)");
 
       chart.append('text').text('Gross Domestic Product, USA')
+                .attr("id","title")
                 .attr("class","title")
                 .attr('x', 300)
                 .attr('y', 20)
