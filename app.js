@@ -3,7 +3,7 @@ let data = [];
 
 let margin = {top: 30, right: 80, bottom: 80, left:80}
 let widthChart = 1300 - margin.left - margin.right;
-let heightChart = 620 - margin.top - margin.bottom;
+let heightChart = 570 - margin.top - margin.bottom;
 const chartHandler = document.getElementById("chart");
 let wrapperBox = document.getElementById("wrapper");
 
@@ -34,20 +34,42 @@ fetch(url)
       let bar = chart.selectAll("g")
           .data(data)
           .enter().append("g")
-          .attr("transform", function(d, i){ return "translate(" + i * barWidth + ",0)"; });
+
+      let tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .attr("id","tooltip")
+        .style("opacity", "0");
 
       bar.append("rect")
+          .attr("class", "bar")
+          .attr("data-date", (d) => d[0] )
+          .attr("x", (d,i) => x(new Date(d[0])) )
+          .attr("data-gdp", (d) => d[1])
           .attr("y", function(d) { return y(d[1]); })
           .attr("height", function(d) { return heightChart - y(d[1]); })
           .attr("width", barWidth)
-          .attr("id",function(d) { return data.indexOf(d)});
+          .attr("id",function(d) { return data.indexOf(d)})
+          .on("mouseover", function(d) {
+            tooltip.style("opacity", "1")
+              .style("top", (y(d[1])-50)>60 ? y(d[1])-50 + "px" : "0px" )
+              .style("left",x(new Date(d[0])) + 60 + "px" )
+              .html(d[0] + "<br />" + d[1] + " B$")
+              .attr("data-date", d[0]);
+          })
+          .on("mouseout", function(d) {
+              tooltip.style("opacity", "0" );
+          });
 
       chart.append("g")
         .attr("class", "axis")
+        .attr("id", "x-axis")
         .attr("transform", "translate(0," + heightChart + ")")
         .call(xAxis);
 
-      chart.append("g").attr("class", "axis").call(yAxis);
+      chart.append("g")
+        .attr("class", "axis")
+        .attr("id", "y-axis")
+        .call(yAxis);
 
       chart.append('text').text('Units: Billions of Dollars')
                 .attr("class","axis-description")
@@ -56,6 +78,7 @@ fetch(url)
                 .attr("transform", "rotate(-90 30 210)");
 
       chart.append('text').text('Gross Domestic Product, USA')
+                .attr("id","title")
                 .attr("class","title")
                 .attr('x', 300)
                 .attr('y', 20)
@@ -87,27 +110,7 @@ fetch(url)
                   .attr('x', 150)
                   .attr('y', 150)
                   .attr("class", "sign");
-
-
-      let tooltip = document.createElement("div");
-      tooltip.classList.add('tooltip');
-      tooltip.setAttribute("id", "tooltip");
-      wrapperBox.appendChild(tooltip);
-
-      chartHandler.addEventListener("mouseover", function(event){
-        let ev = parseInt(event.target.id);
-        if (!isNaN(ev)) {
-          let top = event.layerY-90;
-          let left = event.layerX-60;
-          tooltip.innerHTML =(data[ev][0] +"<br />"+ data[ev][1]+" B$");
-          tooltip.style.top = top.toString()+"px";
-          tooltip.style.left = left.toString()+"px";
-          tooltip.style.zIndex= "2";
-        } else {
-          tooltip.style.zIndex= "-2";
-        }
-      }, false);
-})
+  })
   .catch(function(error){
     console.log(error);
   });

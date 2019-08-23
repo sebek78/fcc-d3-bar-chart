@@ -5,6 +5,7 @@
   color: #191919;
   font-family: 'Playfair Display', serif;
 }
+
 .wrapper {
   width: 1300px;
   margin: 0 auto;
@@ -12,42 +13,51 @@
   position: relative;
   overflow: hidden;
 }
+
 .chart {
   background-color: #d8c7a8;
   display: block;
 }
+
 .chart rect {
   fill: #3f3015;
 }
+
 .chart rect:hover {
   fill: #F0E2B5;
 }
+
 .axis text {
   font-size: 20px;
 }
+
 .axis line {
   stroke: #191919;
 }
+
 .axis-description {
-  font-size:20px;
+  font-size: 20px;
 }
+
 .title {
   font-size: 40px;
 }
+
 .sign {
   font-family: 'Rouge Script', cursive;
   font-size: 30px;
   stroke: none;
   fill: #A78D5E;
 }
+
 .tooltip {
   background-color: #F0E2B5;
   position: absolute;
-  z-index:2;
-  color: ##191919;
+  z-index: 2;
+  color: #191919;
   font-size: 20px;
   padding: 5px;
-  width:120px;
+  width: 120px;
   height: 60px;
   border: 2px solid #A78D5E;
   border-radius: 5px;
