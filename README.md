@@ -11,4 +11,4 @@ Live version [CodePen](https://codepen.io/sebek78/full/oNvBQyr)
 
 Author [Sebastian Sporek](http://mybytes.pl)
 
-Task: [Build a JavaScript Calculator](https://learn.freecodecamp.org/data-visualization/data-visualization-projects/visualize-data-with-a-bar-chart)
+Task: [Visualize Data with a Bar Chart](https://learn.freecodecamp.org/data-visualization/data-visualization-projects/visualize-data-with-a-bar-chart)
